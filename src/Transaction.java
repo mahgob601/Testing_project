@@ -45,9 +45,6 @@ public class Transaction {
         this.account = account;
         this.transferAccount = transferAccount;
         this.amount = amount;
-
-        transferAccount.addTransaction("$" + amount + " were transferred to you from " + account.getName());
-        account.addTransaction(type + "red $" + amount + " to " + transferAccount.getName());
         checkType();
     }
 
@@ -109,11 +106,14 @@ public class Transaction {
         if(account.getBalance()<amount){
             System.out.println("Can't proceed transfer");
             this.account.addTransaction(type + " $" + amount + " Failed");
+
         }
         else{
             account.updateBalance(-amount);
             transferAccount.updateBalance(amount);
             this.account.addTransaction(type + " $" + amount + " Successful");
+            account.addTransaction(type + "red $" + amount + " to " + transferAccount.getName());
+            transferAccount.addTransaction("$" + amount + " were transferred to you from " + account.getName());
             System.out.println(amount + " Transferred Successfully!");
         }
     }
