@@ -22,19 +22,23 @@ public class Account {
     }
 
     public String updateBalance(double balance) {
-        if ((Balance == 0) && (balance < 0)){
+        if ((Balance+balance< 0) && (balance < 0)){
             System.out.println("Invalid Transaction");
             return("Failed");
         }
         else{
-        Balance += balance;
-        return ("Successful");
+            Balance += balance;
+            return ("Successful");
         }
     }
 
     public void addTransaction(String transact)
     {
         this.transactions_list.add(transact);
+    }
+
+    public ArrayList<String> getTransactions_list() {
+        return transactions_list;
     }
 
     public void printTransactions()
@@ -51,15 +55,7 @@ public class Account {
         return Name;
     }
 
-    public void setName(String name) {
-        Name = name;
-    }
-
     public int getAccountNo() {
         return AccountNo;
-    }
-
-    public void setAccountNo(int accountNo) {
-        AccountNo = accountNo;
     }
 }

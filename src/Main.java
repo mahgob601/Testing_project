@@ -25,12 +25,17 @@ public class Main {
         Transaction trans4 = new Transaction("Transfer", 150, client8.getAccount(), client9.getAccount());
         //System.out.println(client8.getAccount().getBalance());
         Transaction trans6 = new Transaction("Pay",client8.getAccount(),"50091");
-
+        Transaction trans7 = new Transaction("Withdraw", 10000, client8.getAccount(), client9.getAccount());
 
         client8.getAccount().printTransactions();
         System.out.println("\n");
 
         System.out.println(client8.getAccount().getBalance());
-        //client9.getAccount().printTransactions();
+        client9.getAccount().printTransactions();
+        double[] prices = {100,200,300,400,500,600,700,800,900,1000};
+        String payCode = "10000";
+        System.out.println(payCode.charAt(0) - '0');
+        System.out.println(prices[payCode.charAt(0) - '0']);
+
     }
 }

@@ -5,12 +5,8 @@ public class Transaction {
     private double amount;
     private Account account;
     private Account transferAccount;
-
     private String payCode;
-
-
-    Random r = new Random();
-    double price = 100 + (500 - 100) * r.nextDouble();
+    static double[] prices = {100,200,300,400,500,600,700,800,900,1000};
 
 
     public Transaction(String type, double amount, Account account)
@@ -69,10 +65,10 @@ public class Transaction {
 
     public void payOnline()
     {
-        String check = account.updateBalance(-price);
+        String check = account.updateBalance(-prices[payCode.charAt(0) - '0']);
         if(check == "Successful")
         {
-            this.account.addTransaction("Item with code "+ this.payCode + " was purchased "  + " $" + price + " Successfully");
+            this.account.addTransaction("Item with code "+ this.payCode + " was purchased $" + prices[payCode.charAt(0) - '0'] + " Successfully");
         }
         else
         {
