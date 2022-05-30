@@ -5,7 +5,7 @@ public class Transaction {
     private String time;
     private String date;
 
-    public Transaction()
+    public Transaction(String type, String time, String date)
     {
         this.type = type;
         this.time = time;
