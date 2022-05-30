@@ -6,7 +6,7 @@ public class Deposit extends Transaction  {
     public Deposit(String type, String time, String date){
         super();
     }
-    public void depop(int  depositAmount){
+    public void depositM(int  depositAmount){
         balance += amount;
     }
 }
