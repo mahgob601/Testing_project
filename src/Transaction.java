@@ -112,8 +112,7 @@ public class Transaction {
             account.updateBalance(-amount);
             transferAccount.updateBalance(amount);
             this.account.addTransaction(type + " $" + amount + " Successful");
-            account.addTransaction(type + "red $" + amount + " to " + transferAccount.getName());
-            transferAccount.addTransaction("$" + amount + " were transferred to you from " + account.getName());
+            this.transferAccount.addTransaction("$" + amount + " were transferred to you from " + account.getName());
             System.out.println(amount + " Transferred Successfully!");
         }
     }
