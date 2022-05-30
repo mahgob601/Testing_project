@@ -18,6 +18,26 @@ class UnitTesting {
     }
 
     @Test
+    public void AccountTest2() {
+        Account client1 = new Account("Seif");
+        client1.updateBalance(866);
+        client1.setName("Seif");
+        assertNotEquals(86,client1.getBalance());
+        client1.updateBalance(10);
+        assertNotEquals(76,client1.getBalance());
+    }
+
+    @Test
+    public void AccountTest3() {
+        Account client1 = new Account("Seif");
+        client1.updateBalance(-866);
+        client1.setName("Seif");
+        assertEquals(0,client1.getBalance());
+        client1.updateBalance(10);
+        assertNotEquals(76,client1.getBalance());
+    }
+
+    @Test
     public void ClientTest(){
         Client client1=new Client("Yara","12345","0129232434","NasrCity");
         assertEquals("Yara",client1.getName());
@@ -44,6 +64,7 @@ class UnitTesting {
         assertEquals(100,client2.getAccount().getBalance());
     }
 
+
     @Test
     public void TransactionTest2(){ //tests the printed out transactions made by a certain account
         ArrayList<String> transactions_list1= new ArrayList<String>(){{
@@ -51,7 +72,6 @@ class UnitTesting {
            add("Deposit $600.0 Successful");
            add("Withdraw $150.0 Successful");
            add("Transfer $150.0 Successful");
-
         }
         };
         Client client8 = new Client("Seif Sameh","*****");
@@ -63,5 +83,25 @@ class UnitTesting {
         Transaction trans4 = new Transaction("Transfer", 150, client8.getAccount(), client9.getAccount());
         assertEquals(transactions_list1,client8.getAccount().getTransactions_list());
 
+    }
+    @Test
+    public void TransactionTest3(){
+        Client client1 = new Client("Seif","****");
+        Transaction trans1=new Transaction("Withdraw",200,client1.getAccount());
+        assertEquals(0,client1.getAccount().getBalance());
+
+        Transaction trans2 = new Transaction("Deposit",-200,client1.getAccount());
+        assertEquals(0,client1.getAccount().getBalance());
+
+        Transaction trans6 = new Transaction("Deposit",200,client1.getAccount());
+        assertEquals(200,client1.getAccount().getBalance());
+
+        Client client2 = new Client("Yassin","******");
+        Transaction trans3 = new Transaction("Transfer",400,client1.getAccount(),client2.getAccount());
+        //wont proceed transfering money because its not availble in the client's account
+        assertEquals(200,client1.getAccount().getBalance());
+
+        /*Transaction trans4=new Transaction("Withdraw",100,client2.getAccount());
+        assertEquals(100,client2.getAccount().getBalance());*/
     }
 }
