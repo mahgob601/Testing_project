@@ -1,9 +1,12 @@
+import java.util.ArrayList;
+
 public class Client {
     private String Name;
     private String phoneNo;
     private String Address;
     private String Password;
     private Account account;
+
 
     public Client(String Name, String Password){
         this.Name = Name;
@@ -23,6 +26,9 @@ public class Client {
         this.Address = Address;
         createAccount();
     }
+
+
+
     private void createAccount(){
         this.account = new Account(Name);
     }
