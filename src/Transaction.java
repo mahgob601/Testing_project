@@ -1,10 +1,16 @@
+import java.util.Random;
 public class Transaction {
     private String type;
     //private String time;
     private double amount;
     private Account account;
     private Account transferAccount;
+
     private String payCode;
+
+
+    Random r = new Random();
+    double price = 100 + (500 - 100) * r.nextDouble();
 
 
     public Transaction(String type, double amount, Account account)
@@ -14,22 +20,26 @@ public class Transaction {
         this.account = account;
         this.amount = amount;
 
-        account.addTransaction(type + " $" + amount);
+
         checkType();
     }
-    public Transaction(String type, double amount, Account account, String code)
+
+    public Transaction(String type,Account account, String code)
     {
         this.type = type;
+
         //this.time = time;
         this.account = account;
-        this.amount = amount;
+
         this.payCode = code;
 
-        account.addTransaction("Item with code "+ code + " was purchased " +type + " $" + amount);
         checkType();
+
+
     }
     public Transaction(String type, double amount, Account account,Account transferAccount)
     {
+
         this.type = type;
         //this.time = time;
         this.account = account;
@@ -62,29 +72,49 @@ public class Transaction {
 
     public void payOnline()
     {
-
-
+        String check = account.updateBalance(-price);
+        if(check == "Successful")
+        {
+            this.account.addTransaction("Item with code "+ this.payCode + " was purchased "  + " $" + price + " Successfully");
+        }
+        else
+        {
+            this.account.addTransaction("Unable to purchase item with code "+ this.payCode);
+        }
 
     }
 
     public void withdraw()
     {
-        account.updateBalance(-amount);
+        String check;
+        check = account.updateBalance(-amount);
+        if(check == "Successful")
+        {
+            this.account.addTransaction(type + " $" + amount + " Successful");
+        }
+        else
+        {
+            this.account.addTransaction(type + " $" + amount + " Failed");
+        }
+
+
     }
 
     public void deposit(){
         account.updateBalance(amount);
+        this.account.addTransaction(type + " $" + amount + " Successful");
     }
 
     public void transferMoney(){
         if(account.getBalance()<amount){
             System.out.println("Can't proceed transfer");
+            this.account.addTransaction(type + " $" + amount + " Failed");
         }
         else{
             account.updateBalance(-amount);
             transferAccount.updateBalance(amount);
-
-            System.out.println(amount + " Transferred Successfully!");
+            this.account.addTransaction(type + " $" + amount + " Successful");
+            //System.out.println(amount + " Transferred Successfully!");
         }
     }
 

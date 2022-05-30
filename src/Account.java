@@ -21,12 +21,14 @@ public class Account {
         return Balance;
     }
 
-    public void updateBalance(double balance) {
+    public String updateBalance(double balance) {
         if ((Balance == 0) && (balance < 0)){
             System.out.println("Invalid Transaction");
+            return("Failed");
         }
         else{
         Balance += balance;
+        return ("Successful");
         }
     }
 

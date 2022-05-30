@@ -23,11 +23,14 @@ public class Main {
         Transaction trans2 = new Transaction("Deposit", 600, client8.getAccount());
         Transaction trans3 = new Transaction("Withdraw", 150, client8.getAccount());
         Transaction trans4 = new Transaction("Transfer", 150, client8.getAccount(), client9.getAccount());
-        System.out.println(client8.getAccount().getBalance());
+        //System.out.println(client8.getAccount().getBalance());
+        Transaction trans6 = new Transaction("Pay",client8.getAccount(),"50091");
 
 
         client8.getAccount().printTransactions();
         System.out.println("\n");
-        client9.getAccount().printTransactions();
+
+        System.out.println(client8.getAccount().getBalance());
+        //client9.getAccount().printTransactions();
     }
 }
