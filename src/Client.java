@@ -2,26 +2,28 @@ public class Client {
     private String Name;
     private String phoneNo;
     private String Address;
-    //private int AccountNo;
+    private String Password;
     private Account account;
 
-    public Client(String Name){
+    public Client(String Name, String Password){
         this.Name = Name;
+        this.Password = Password;
+        createAccount();
+    }
+    public Client(String Name, String Password, String phoneNo){
+        this.Name = Name;
+        this.Password = Password;
         this.phoneNo = phoneNo;
         createAccount();
     }
-    public Client(String Name, String phoneNo){
+    public Client(String Name, String Password, String phoneNo, String Address){
         this.Name = Name;
-        this.phoneNo = phoneNo;
-        createAccount();
-    }
-    public Client(String Name, String phoneNo, String Address){
-        this.Name = Name;
+        this.Password = Password;
         this.phoneNo = phoneNo;
         this.Address = Address;
         createAccount();
     }
-    public void createAccount(){
+    private void createAccount(){
         this.account = new Account(Name);
     }
 
@@ -29,18 +31,19 @@ public class Client {
         return account;
     }
 
-    public void setAccount(Account account) {
-        this.account = account;
-    }
-
     public String getName() {
         return Name;
     }
 
-    public void setName(String name) {
-        Name = name;
+    public String getPhoneNo() {
+        return phoneNo;
     }
 
-    public void deposit(){}
-    public void withdraw(){}
+    public String getAddress() {
+        return Address;
+    }
+
+    public String getPassword() {
+        return Password;
+    }
 }

@@ -16,8 +16,13 @@ public class Account {
         return Balance;
     }
 
-    public void setBalance(double balance) {
-        Balance = balance;
+    public void updateBalance(double balance) {
+        if ((Balance == 0) && (balance < 0)){
+            System.out.println("Invalid Balance");
+        }
+        else{
+        Balance += balance;
+        }
     }
 
     public String getName() {
