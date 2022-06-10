@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.List;
 
 public class Client {
     private String Name;
@@ -6,6 +7,15 @@ public class Client {
     private String Address;
     private String Password;
     private Account account;
+    public static Client client1 = new Client("adham","1234");
+    public static Client client2=new Client("seif","12345");
+    public static Client client3=new Client("yasseen","123456");
+    public static Client[] clientsArr={client1,client2,client2,null,null};
+
+
+
+
+
 
 
     public Client(String Name, String Password){
@@ -26,7 +36,6 @@ public class Client {
         this.Address = Address;
         createAccount();
     }
-
 
 
     private void createAccount(){
@@ -52,4 +61,5 @@ public class Client {
     public String getPassword() {
         return Password;
     }
+
 }

@@ -4,6 +4,11 @@ import javax.swing.*;
 
 
 public class registerScreen {
+    public static Client loggedInClient;
+    public static Client getLoggedInClient(){
+        return loggedInClient;
+    }
+
     registerScreen(){
         JFrame window=new JFrame("Register Window");
         window.setSize(500,400);
@@ -12,17 +17,7 @@ public class registerScreen {
         window.setLocationRelativeTo(null);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        JButton rgstrBtn= new JButton("Register");
-        rgstrBtn.setBounds(300,300,90,40);
-        rgstrBtn.setBackground(Color.decode("#c5d8e1"));
-        rgstrBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                window.dispose();
-                new mainScreen();
-            }
-        });
-        window.add(rgstrBtn);
+
 
         JButton backBtn= new JButton("Back");
         backBtn.setBounds(100,300,90,40);
@@ -64,6 +59,18 @@ public class registerScreen {
         JPasswordField conPassField= new JPasswordField();
         conPassField.setBounds(210,180,190,25);
         window.add(conPassField);
+
+        JButton rgstrBtn= new JButton("Register");
+        rgstrBtn.setBounds(300,300,90,40);
+        rgstrBtn.setBackground(Color.decode("#c5d8e1"));
+        rgstrBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                window.dispose();
+                new mainScreen();
+            }
+        });
+        window.add(rgstrBtn);
 
         window.setVisible(true);
     }

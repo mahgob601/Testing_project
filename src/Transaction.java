@@ -6,8 +6,13 @@ public class Transaction {
     private Account account;
     private Account transferAccount;
     private String payCode;
-    static double[] prices = {100,200,300,400,500,600,700,800,900,1000};
+    public static double[] prices = {100,200,300,400,500,600,700,800,900,1000};
 
+    public static double getPrice(int n){
+        double price;
+        price=(n+1)*100;
+        return price;
+    }
 
     public Transaction(String type, double amount, Account account)
     {

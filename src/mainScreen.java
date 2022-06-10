@@ -2,8 +2,14 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
+import static javax.swing.JOptionPane.ERROR_MESSAGE;
+import static javax.swing.JOptionPane.showMessageDialog;
+
 
 public class mainScreen {
+
+    public Client client=loginScreen.getLoggedInClient();
+
     mainScreen(){
         JFrame window=new JFrame("Main Window");
         window.setSize(1000,800);
@@ -40,13 +46,13 @@ public class mainScreen {
         subLabel.setForeground(Color.white);
         titleBar.add(subLabel);
 
-        JLabel nameLabel=new JLabel("Name: "+"/User Name/");
+        JLabel nameLabel=new JLabel("Name: "+ client.getName() );
         topBar.add(nameLabel);
 
-        JLabel accountLabel= new JLabel("Account Number: "+"/Account Number/");
+        JLabel accountLabel= new JLabel("Account Number: "+ client.getAccount().getAccountNo());
         topBar.add(accountLabel);
 
-        JLabel balanceLabel= new JLabel("Balance: "+"/Balance/");
+        JLabel balanceLabel= new JLabel("Balance: "+ client.getAccount().getBalance());
         topBar.add(balanceLabel);
 
         //--------Deposit Screen--------//
@@ -66,11 +72,28 @@ public class mainScreen {
 
         JTextField amountField= new JTextField();
         amountField.setBounds(370,100,100,20);
+        amountField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if ( ((c < '0') || (c > '9')) && (c != KeyEvent.VK_BACK_SPACE)) {
+                    e.consume();  // if it's not a number, ignore the event
+                }
+            }
+        });
         depositPanel.add(amountField);
 
         JButton depbtn=new JButton("Deposit");
         depbtn.setBounds(370,140,90,40);
         depbtn.setBackground(Color.decode("#c5d8e1"));
+        depbtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Transaction trans1= new Transaction("Deposit", Double.parseDouble(amountField.getText()), client.getAccount() );
+                showMessageDialog(window, "Operation Successful");
+                balanceLabel.setText("Balance: "+ client.getAccount().getBalance());
+            }
+        });
         depositPanel.add(depbtn);
         //-------End of Deposit Screen-------//
 
@@ -97,11 +120,32 @@ public class mainScreen {
 
         JTextField amount2Field= new JTextField();
         amount2Field.setBounds(370,100,100,20);
+        amount2Field.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if ( ((c < '0') || (c > '9')) && (c != KeyEvent.VK_BACK_SPACE)) {
+                    e.consume();  // if it's not a number, ignore the event
+                }
+            }
+        });
         withdrawPanel.add(amount2Field);
 
         JButton withbtn=new JButton("Withdraw");
         withbtn.setBounds(370,140,90,40);
         withbtn.setBackground(Color.decode("#c5d8e1"));
+        withbtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (client.getAccount().getBalance()>=Double.parseDouble(amount2Field.getText())){
+                    Transaction trans1= new Transaction("Withdraw", Double.parseDouble(amount2Field.getText()), client.getAccount() );
+                    showMessageDialog(window, "Operation Successful");
+                    balanceLabel.setText("Balance: "+ client.getAccount().getBalance());
+                }
+                else
+                    showMessageDialog(window, "Not Enough Balance", "Invalid Balance", ERROR_MESSAGE);
+            }
+        });
         withdrawPanel.add(withbtn);
         //-------End of Withdraw Screen-------//
 
@@ -122,6 +166,15 @@ public class mainScreen {
 
         JTextField targetField= new JTextField();
         targetField.setBounds(370,75,100,20);
+        targetField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if ( ((c < '0') || (c > '9')) && (c != KeyEvent.VK_BACK_SPACE)) {
+                    e.consume();  // if it's not a number, ignore the event
+                }
+            }
+        });
         transferPanel.add(targetField);
 
         JLabel amount3Label= new JLabel("Amount:");
@@ -130,11 +183,43 @@ public class mainScreen {
 
         JTextField amount3Field= new JTextField();
         amount3Field.setBounds(370,100,100,20);
+        amount3Field.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if ( ((c < '0') || (c > '9')) && (c != KeyEvent.VK_BACK_SPACE)) {
+                    e.consume();  // if it's not a number, ignore the event
+                }
+            }
+        });
         transferPanel.add(amount3Field);
 
         JButton trnsbtn=new JButton("Transfer");
         trnsbtn.setBounds(370,140,90,40);
         trnsbtn.setBackground(Color.decode("#c5d8e1"));
+        trnsbtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                boolean check=false;
+                for(Client user:Client.clientsArr){
+                    if(user.getAccount().getAccountNo()==Integer.parseInt(targetField.getText())){
+                        if (client.getAccount().getBalance()>=Double.parseDouble(amount3Field.getText())){
+                            Transaction trans1= new Transaction("Transfer", Double.parseDouble(amount3Field.getText()), client.getAccount(),user.getAccount() );
+                            showMessageDialog(window, "Operation Successful");
+                            balanceLabel.setText("Balance: "+ client.getAccount().getBalance());
+
+                        }
+                        else
+                            showMessageDialog(window, "Not Enough Balance", "Invalid Balance", ERROR_MESSAGE);
+                        check=true;
+                        break;
+                    }
+                }
+                if (check==false)
+                    showMessageDialog(window, "Account Not Found", "Invalid Account", ERROR_MESSAGE);
+
+            }
+        });
         transferPanel.add(trnsbtn);
         //-------End of Transfer Screen-------//
 
@@ -155,11 +240,33 @@ public class mainScreen {
 
         JTextField billField= new JTextField();
         billField.setBounds(370,100,100,20);
+        billField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if ( ((c < '0') || (c > '9')) && (c != KeyEvent.VK_BACK_SPACE)) {
+                    e.consume();  // if it's not a number, ignore the event
+                }
+            }
+        });
         payPanel.add(billField);
 
         JButton paybtn=new JButton("Pay");
         paybtn.setBounds(370,140,90,40);
         paybtn.setBackground(Color.decode("#c5d8e1"));
+        paybtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int n=Character.getNumericValue(billField.getText().charAt(0)) ;
+                if (Transaction.getPrice(n)>client.getAccount().getBalance())
+                    showMessageDialog(window, "Not Enough Balance", "Invalid Balance", ERROR_MESSAGE);
+                else {
+                    Transaction trans1= new Transaction("Pay",client.getAccount(),billField.getText());
+                    showMessageDialog(window, "Operation Successful");
+                    balanceLabel.setText("Balance: "+ client.getAccount().getBalance());
+                }
+            }
+        });
         payPanel.add(paybtn);
         //-------End of Pay Bill Screen-------//
 
@@ -180,11 +287,33 @@ public class mainScreen {
 
         JTextField itemField= new JTextField();
         itemField.setBounds(370,100,100,20);
+        itemField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if ( ((c < '0') || (c > '9')) && (c != KeyEvent.VK_BACK_SPACE)) {
+                    e.consume();  // if it's not a number, ignore the event
+                }
+            }
+        });
         buyPanel.add(itemField);
 
         JButton buy=new JButton("Purchase");
         buy.setBounds(370,140,90,40);
         buy.setBackground(Color.decode("#c5d8e1"));
+        buy.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int n=Character.getNumericValue(billField.getText().charAt(0)) ;
+                if (Transaction.getPrice(n)>client.getAccount().getBalance())
+                    showMessageDialog(window, "Not Enough Balance", "Invalid Balance", ERROR_MESSAGE);
+                else {
+                    Transaction trans1= new Transaction("Pay",client.getAccount(),billField.getText());
+                    showMessageDialog(window, "Operation Successful");
+                    balanceLabel.setText("Balance: "+ client.getAccount().getBalance());
+                }
+            }
+        });
         buyPanel.add(buy);
         //-------End of Buy Item Screen-------//
 
