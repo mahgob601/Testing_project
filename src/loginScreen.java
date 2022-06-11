@@ -37,8 +37,8 @@ public class loginScreen {
         rgstrBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //window.dispose();
-                //new registerScreen();
+                showMessageDialog(window, "This Feature is Not Available", "Invalid Feature", ERROR_MESSAGE);
+
             }
         });
         window.add(rgstrBtn);
