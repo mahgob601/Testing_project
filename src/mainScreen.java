@@ -52,7 +52,7 @@ public class mainScreen {
         JLabel accountLabel= new JLabel("Account Number: "+ client.getAccount().getAccountNo());
         topBar.add(accountLabel);
 
-        JLabel balanceLabel= new JLabel("Balance: "+ client.getAccount().getBalance());
+        JLabel balanceLabel= new JLabel("Balance: "+ client.getAccount().getBalance()+"$");
         topBar.add(balanceLabel);
 
         //--------Deposit Screen--------//
@@ -91,7 +91,7 @@ public class mainScreen {
             public void actionPerformed(ActionEvent e) {
                 Transaction trans1= new Transaction("Deposit", Double.parseDouble(amountField.getText()), client.getAccount() );
                 showMessageDialog(window, "Operation Successful");
-                balanceLabel.setText("Balance: "+ client.getAccount().getBalance());
+                balanceLabel.setText("Balance: "+ client.getAccount().getBalance()+"$");
             }
         });
         depositPanel.add(depbtn);
@@ -140,7 +140,7 @@ public class mainScreen {
                 if (client.getAccount().getBalance()>=Double.parseDouble(amount2Field.getText())){
                     Transaction trans1= new Transaction("Withdraw", Double.parseDouble(amount2Field.getText()), client.getAccount() );
                     showMessageDialog(window, "Operation Successful");
-                    balanceLabel.setText("Balance: "+ client.getAccount().getBalance());
+                    balanceLabel.setText("Balance: "+ client.getAccount().getBalance()+"$");
                 }
                 else
                     showMessageDialog(window, "Not Enough Balance", "Invalid Balance", ERROR_MESSAGE);
@@ -206,7 +206,7 @@ public class mainScreen {
                         if (client.getAccount().getBalance()>=Double.parseDouble(amount3Field.getText())){
                             Transaction trans1= new Transaction("Transfer", Double.parseDouble(amount3Field.getText()), client.getAccount(),user.getAccount() );
                             showMessageDialog(window, "Operation Successful");
-                            balanceLabel.setText("Balance: "+ client.getAccount().getBalance());
+                            balanceLabel.setText("Balance: "+ client.getAccount().getBalance()+"$");
 
                         }
                         else
@@ -261,7 +261,7 @@ public class mainScreen {
                 if (Transaction.getPrice(n)>client.getAccount().getBalance())
                     showMessageDialog(window, "Not Enough Balance", "Invalid Balance", ERROR_MESSAGE);
                 else {
-                    Transaction trans1= new Transaction("Pay",client.getAccount(),billField.getText());
+                    Transaction trans1= new Transaction("Pay",client.getAccount(),billField.getText()+"$");
                     showMessageDialog(window, "Operation Successful");
                     balanceLabel.setText("Balance: "+ client.getAccount().getBalance());
                 }
@@ -308,7 +308,7 @@ public class mainScreen {
                 if (Transaction.getPrice(n)>client.getAccount().getBalance())
                     showMessageDialog(window, "Not Enough Balance", "Invalid Balance", ERROR_MESSAGE);
                 else {
-                    Transaction trans1= new Transaction("Pay",client.getAccount(),billField.getText());
+                    Transaction trans1= new Transaction("Pay",client.getAccount(),billField.getText()+"$");
                     showMessageDialog(window, "Operation Successful");
                     balanceLabel.setText("Balance: "+ client.getAccount().getBalance());
                 }
